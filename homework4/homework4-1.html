@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание 4-1</title>
+</head>
+<body>
+<script>
+    /*•Напишите функцию min, принимающую два аргумента, и возвращающую минимальный из них*/
+    function least(a, b) {
+        if (b < a)
+            return b;
+        else if (a < b)
+            return a;
+        else if (a == b)
+            return "Числа равны";
+    }
+    /* проблема этой функции в том, что если ожидается возвращение числа,
+     и эти числа где-то используется, то при равенстве аргументов это застопорит дальшейшее движение)
+     */
+    function leastToConsole(a, b) {
+        if (least(a, b) == "Числа равны")
+            console.log("числа " + a + " и " + b + " равны");
+        else
+            console.log("Из чисел " + a + " и " + b + " меньшим является " + least(a, b));
+    }
+
+    leastToConsole(10, 20);
+    leastToConsole(30, 20);
+    leastToConsole(18, 18);
+</script>
+</body>
+</html>

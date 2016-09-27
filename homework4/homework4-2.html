@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание 4-2</title>
+</head>
+<body>
+<script>
+    /*•	Напишите программу, считающюю количество определенный букв в слове.*/
+    function countChars (word, char) {
+        word = word.toLowerCase();  //приводим все к нижнему регистру, так как одна и та же буква в нижнем и в верхнем регистре - это разные вещи
+        char = char.toLowerCase();
+        var count = 0;
+        for (var i =0; i <= word.length; i++) {
+            if ( word.charAt(i) === char ) {
+                count +=1;
+            }
+        }
+        console.log("В слове " + word + " найдено " + count + " букв " + char);
+    }
+
+    countChars("Каракалпаки", "к");
+</script>
+</body>
+</html>
