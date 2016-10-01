@@ -20,7 +20,7 @@
 
     function toHex(number) {
         number = number > 255 ? 255 : number;  //на случай, если ввели больше 255, обрезаем до 255
-        hex = number.toString(16);
+        var hex = number.toString(16);
         hex = hex.length > 1 ? hex : "0" + hex; //добавляем ведущий ноль при необходимости
         return hex;
     }
