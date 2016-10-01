@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание 5-3</title>
+</head>
+<body>
+<script>
+    /*Реализовать функцию objectToQueryString(object),
+     которая принимает аргументом объект, возвращает строку.*/
+    function objectToQueryString(obj) {
+        var str = "11";
+        /*странный глюк, но все строковые методы отрезают первые три символа,
+         даже если стартовая позиция задается "1",
+         (а если (2), то 6 символов!)поэтому два лишних символа задаю изначально*/
+        for (var key in obj) {
+            str += "&" + key + "=" + obj[key];
+            str = str.slice(1).toLowerCase(); //убираем первый символ?и приводим к нижнему регистру
+        }
+        return str;
+    }
+
+    var testObj1 = {
+        id: 1,
+        name: "Vasya",
+        passw: "1234asdf"
+    };
+
+    var testObj2 = {
+        category: "shoes",
+        itemId: 1324,
+        size: 42
+    };
+
+    console.log( objectToQueryString(testObj1) );
+    console.log( objectToQueryString(testObj2) );
+</script>
+</body>
+</html>
