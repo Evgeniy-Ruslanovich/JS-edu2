@@ -13,14 +13,15 @@
         for (var key in obj) {
             str += "&" + key + "=" + obj[key];
         }
-        str = str.slice(1).toLowerCase(); //убираем первый символ?и приводим к нижнему регистру
+        str = str.slice(1).toLowerCase(); //убираем первый символ "&" и приводим к нижнему регистру
         return str;
     }
 
     var testObj1 = {
         id: 1,
         name: "Vasya",
-        passw: "1234asdf"
+        passw: "1234asdf",
+        access: "user"
     };
 
     var testObj2 = {
