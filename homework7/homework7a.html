@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Домашняя работа 7</title>
+    <style>
+        .main {
+        }
+
+        .cell {
+            width: 98px;
+            height: 98px;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 80px;
+        }
+
+        .blackcell {
+            width: 98px;
+            height: 98px;
+            border: 1px solid black;
+            background-color: #000000;
+            text-align: center;
+            font-size: 80px;
+            text-shadow: 0 0 7px white;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .indexcell {
+            height: 98px;
+            width: 18px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        .topleftcell {
+            height: 18px;
+            width: 18px;
+            border: 1px solid black;
+        }
+
+        .topindexcell {
+            height: 18px;
+            width: 98px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+
+</div>
+
+<script>
+    var mainDiv = document.getElementsByClassName("main")[0];
+    console.log(mainDiv);
+
+    function buildTable(parent) {  //строим таблицу
+
+        var newTable = document.createElement("table"); //создаем элемент
+
+        buildCell.cellCount = 0;  //задаем статическое свойство, которое пригодится потом
+
+        function createTopRow() { //незамысловато создаем верхний ряд
+            var cellChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+            var topRow = document.createElement("tr");
+            var topLeftCell = document.createElement("td");
+            topLeftCell.className = "topleftcell";
+            topRow.appendChild(topLeftCell);
+            for (var i = 0; i <= 7; i++) {
+                topRow.innerHTML += "<td class='topindexcell'>" + cellChars[i] + "</td>";
+            }
+            console.log(topRow);
+            newTable.appendChild(topRow);
+        }
+
+        createTopRow(); //вызываем функцию, создающую верхний ряд
+
+        for (var i = 8; i >= 1; i--) { //цикл, создающий 8 рядов
+            buildRow(newTable, i);
+        }
+
+        var tableObject = {};  //это на потом, пригодится
+
+        // var cellChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']; //буковки для маркировки строк, почему то из замыкание не берутся((
+
+        function buildCell(parent, cellNumber, rowNumber) {  //функция "создаем клетку"
+            buildCell.cellCount++;                          //инкремент счетчика вызова функции
+
+            var cellChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+
+            var newCell = document.createElement("td");     //создаем элемент
+            if ((buildCell.cellCount % 2) == 0) {          //если счетчик вызова четный, клетку делаем черную
+                newCell.className = "blackcell";
+            } else {
+                newCell.className = "cell";
+            }
+            newCell.setAttribute('id', cellChars[cellNumber] + rowNumber);  //задаем айдишник, соответствующий шахматным координатам
+
+            parent.appendChild(newCell);        //прикрепляем к родительскому элементу
+        }
+
+        function buildRow(parent, rowNumber) {  //фукнция "строим ряд"
+            var newRow = document.createElement("tr"); //создаем элемент
+            var indexCell = document.createElement("td"); //делаем первую индексную клетку
+            indexCell.className = 'indexcell';
+            indexCell.innerText = rowNumber; //вставляем в индексную клетку номерок
+            newRow.appendChild(indexCell); //прикрепляем к родительскому элементу
+
+            for (var i = 0; i < 8; i++) {   //цикл, который прикрепляе ячейки таблицы
+                buildCell(newRow, i, rowNumber);
+            }
+
+            parent.appendChild(newRow);  //прикрепляем новоиспеченный ряд к таблице
+            buildCell.cellCount++;   //инкрементируем счетчик ячеек, чтобы след ячейка была другого цвета
+        }
+
+
+        parent.appendChild(newTable);
+    }
+
+    /*На выходе мы имеем талицу,
+     в которой ячейки промаркированы айдишниками,
+     соответствующими шахматным координатам*/
+
+    buildTable(mainDiv);
+
+    figures = {
+        wpeshka: "♙",
+        bpeshka: "♟",
+        wladia: "♖",
+        bladia: "♖",
+        whorse: "♘",
+        bhorse: "♞",
+        wofficer: "♗",
+        bofficer: "♝",
+        wking: "♔",
+        bking: "♚",
+        wferz: "♕",
+        bferz: "♛",
+    };
+
+    function figureDeployment() {
+
+        var chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        for (var i = 0; i <= 7; i++) { //белые пешки
+            document.getElementById((chars[i] + '2')).innerText = figures.wpeshka;
+        }
+
+        for (i = 0; i <= 7; i++) { //черные пешки
+            document.getElementById((chars[i] + '7')).innerText = figures.bpeshka;
+        }
+
+        document.getElementById('a1').innerText = figures.wladia;
+        document.getElementById('h1').innerText = figures.wladia;
+        document.getElementById('b1').innerText = figures.whorse;
+        document.getElementById('g1').innerText = figures.whorse;
+        document.getElementById('c1').innerText = figures.wofficer;
+        document.getElementById('f1').innerText = figures.wofficer;
+        document.getElementById('e1').innerText = figures.wking;
+        document.getElementById('d1').innerText = figures.wferz;
+
+        document.getElementById('a8').innerText = figures.bladia;
+        document.getElementById('h8').innerText = figures.bladia;
+        document.getElementById('b8').innerText = figures.bhorse;
+        document.getElementById('g8').innerText = figures.bhorse;
+        document.getElementById('c8').innerText = figures.bofficer;
+        document.getElementById('f8').innerText = figures.bofficer;
+        document.getElementById('e8').innerText = figures.bking;
+        document.getElementById('d8').innerText = figures.bferz;
+
+    }
+
+    figureDeployment();
+
+</script>
+</body>
+</html>
